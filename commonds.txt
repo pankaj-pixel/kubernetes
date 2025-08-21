@@ -1,0 +1,35 @@
+ kubectl apply -f .\ingress.yml
+ kubectl get pods
+ kubectl get svc
+ kubectl get deployment
+ kubectl get pods -o wide
+ kubectl get ingress
+
+ create ingress controller on minikube
+
+--> minikube addons enable ingress 
+-->  kubectl get pod -A | grep nginx
+-->  kubectl logs ingress-nginx-controller-67c5cb88f-nrz75 -n  ingress-nginx
+
+
+configMaps and Secrets
+
+Go inside pod
+kubectl exec -it python-app-577ccdcdf8-7lrlh -- /bin/bash
+inside deployment.yml
+
+        env:
+          - name: DB-PORT
+            valueFrom:
+              configMapKeyRef: 
+                name: test-cm
+                key: db-port
+        ports:
+        - containerPort: 8000
+
+kubectl exec -it python-app-78dbcf794c-7hq7q  -- /bin/bash
+env | grep DB
+ls /opt
+db-port
+cat /opt/db-port | more
+3306
